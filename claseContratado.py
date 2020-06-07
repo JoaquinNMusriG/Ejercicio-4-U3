@@ -1,10 +1,9 @@
 from claseEmpleado import Empleado
+from claseEmpleadoTemporal import EmpleadoTemporal
 
-class Contratado(Empleado):
+class Contratado(Empleado,EmpleadoTemporal):
     ValorHora = 250
 
-    __FechaInicio = None
-    __FechaFin = None
     __CantHoras = 0
 
     @classmethod
@@ -12,14 +11,13 @@ class Contratado(Empleado):
         return cls.ValorHora
 
     def __init__(self,dni,nombre,direccion,telefono,fechaI,fechaF,cantH):
-        super().__init__(dni,nombre,direccion,telefono)
-        self.__FechaInicio = fechaI
-        self.__FechaFin = fechaF
+        Empleado.__init__(self,dni,nombre,direccion,telefono)
+        EmpleadoTemporal.__init__(self,fechaI,fechaF)
         self.__CantHoras = cantH
 
     def __str__(self):
         print(super().__str__())
-        return 'Fecha Inicio = {} Fecha Fin = {} Cant Horas = {}'.format(self.__FechaInicio,self.__FechaFin,self.__CantHoras)
+        return 'Fecha Inicio = {} Fecha Fin = {} Cant Horas = {}'.format(self.getFechaI(),self.getFechaF(),self.__CantHoras)
 
     def getSueldo(self):
         return Contratado.getValorHora()*self.__CantHoras

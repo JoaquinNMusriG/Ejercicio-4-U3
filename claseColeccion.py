@@ -65,12 +65,12 @@ class Coleccion:
     def registrarH (self, dni):
         band = False
         indice = 0
-        while (indice < self.__dimension) & (not band):
+        while (indice < self.__actual) & (not band):
             if (self.__empleados[indice].getDni() == dni):
                 band = True
             else:
                 indice += 1
-        if indice < self.__dimension:
+        if indice < self.__actual:
             if isinstance(self.__empleados[indice],Contratado):
                 hora = input('Ingrese la cantidad de horas trabajadas a agregar.')
                 if hora.isdigit():
@@ -85,7 +85,7 @@ class Coleccion:
     def montoTarea(self,tarea):
         band = False
         indice = 0
-        while (indice < self.__dimension) & (not band):
+        while (indice < self.__actual) & (not band):
             if isinstance(self.__empleados[indice],Externo):
                 if self.__empleados[indice].getTarea() == tarea.lower():
                     band = True
@@ -93,7 +93,7 @@ class Coleccion:
                     indice += 1
             else:
                 indice += 1
-        if indice < self.__dimension:
+        if indice < self.__actual:
             if self.__empleados[indice].getFechaFin() >= date.today():
                 print('El monto a pagar de la tarea es = {}'.format(self.__empleados[indice].getCosto()))
             else:
@@ -103,13 +103,17 @@ class Coleccion:
 
     def Ayuda (self):
         print('Listado de empleados que les corresponde la ayuda: ')
-        for empleado in self.__empleados:
-            if (empleado.getSueldo() < 25000):
-                print('Nombre: {}\nDirección: {}\nDni: {}'.format(empleado.getNombre(),empleado.getDireccion(),empleado.getDni()))
+        i = 0
+        for i in range(self.__actual):
+            if (self.__empleados[i].getSueldo() < 25000):
+                print('Nombre: {}\nDirección: {}\nDni: {}'.format(self.__empleados[i].getNombre(),self.__empleados[i].getDireccion(),self.__empleados[i].getDni()))
                 print('-----')
+            i += 1
 
     def mostrarEmpleados (self):
         print('Listado de empleados: ')
-        for empleado in self.__empleados:
-            print('\nNombre: {}\nTelefono: {}\nSueldo= {}'.format(empleado.getNombre(),empleado.getTelefono(),empleado.getSueldo()))
+        i = 0
+        for i in range(self.__actual):
+            print('\nNombre: {}\nTelefono: {}\nSueldo= {}'.format(self.__empleados[i].getNombre(),self.__empleados[i].getTelefono(),self.__empleados[i].getSueldo()))
             print('-----')
+            i += 1
